@@ -4,23 +4,26 @@ import subprocess
 import re
 from cStringIO import StringIO
 
-# my lib
-import util
-
-# external lib
-p4pythonlib_path = util.get_real_path("~/tools/p4python/lib")
-sys.path.insert(1, p4pythonlib_path)
+#-------------------------------------------------------------------------------
+#   p4python
+#-------------------------------------------------------------------------------
+P4PYTHON_LIB_PATH = '/home/utils/p4python-2014.1.925900/lib/'
+sys.path.insert(1, P4PYTHON_LIB_PATH)
 from P4 import P4, P4Exception
 
+#-------------------------------------------------------------------------------
+#   my lib
+#-------------------------------------------------------------------------------
+import util
 
 #-------------------------------------------------------------------------------
 #   Is
 #-------------------------------------------------------------------------------
-def is_valid_client_name_old(name):
-    cmd = "p4 client -o -t nvtools_0_jtso_master"
-    with open(os.devnull, 'w') as devnull:
-        rc = subprocess.call(cmd.split() + [name], stdout=devnull)
-    return rc == 0
+#def is_valid_client_name_old(name):
+#    cmd = "p4 client -o -t nvtools_0_jtso_master"
+#    with open(os.devnull, 'w') as devnull:
+#        rc = subprocess.call(cmd.split() + [name], stdout=devnull)
+#    return rc == 0
 
 def is_valid_client_name(name):
     p4 = P4()
