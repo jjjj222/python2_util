@@ -14,7 +14,8 @@ from P4 import P4, P4Exception
 #-------------------------------------------------------------------------------
 #   my lib
 #-------------------------------------------------------------------------------
-import util
+import util.cmd as cmd_util
+import util.file as file_util
 
 #-------------------------------------------------------------------------------
 #   Is
@@ -48,7 +49,7 @@ def is_client_uptodate(client_name):
     sstm = StringIO()
 
     cmd = "p4 -c " + client_name + " sync -n"
-    util.run_cmd_no_progress(sstm, cmd)
+    cmd_util.run_cmd_no_progress(sstm, cmd)
     #print sstm.getvalue()
     return sstm.getvalue().strip() == "File(s) up-to-date."
 
@@ -107,10 +108,10 @@ def print_p4config(ostream, client_name):
 #   Create
 #-------------------------------------------------------------------------------
 def create_p4config(client_root, client_name):
-    util.assert_isdir(client_root)
+    file_util.assert_isdir(client_root)
 
     filename = os.path.join(client_root, ".p4config");
-    util.assert_not_exist(filename)
+    file_util.assert_not_exist(filename)
 
     with open(filename, 'w') as p4config:
         print_p4config(p4config, client_name)
@@ -118,8 +119,8 @@ def create_p4config(client_root, client_name):
 
 #-------------------------------------------------------------------------------
 def create_client_spec_file(client_root, client, filename):
-    util.assert_isdir(client_root)
-    util.assert_not_exist(filename)
+    file_util.assert_isdir(client_root)
+    file_util.assert_not_exist(filename)
 
     with open(filename, 'w') as spec_file:
         print_client_spec(spec_file, client_root, client)
@@ -143,7 +144,7 @@ def sync_client(client_name, logfile=None):
         ostream = sys.stdout
 
     cmd = "p4 -c " + client_name + " sync"
-    util.run_cmd(ostream, cmd)
+    cmd_util.run_cmd(ostream, cmd)
 
 #-------------------------------------------------------------------------------
 #   Remove
@@ -155,7 +156,7 @@ def remove_client(client_name):
     #p4.delete_client(client_name)
     cmd = "p4 client -d " + client_name
     ostream = sys.stdout
-    util.run_cmd_oneline(ostream, cmd)
+    cmd_util.run_cmd_oneline(ostream, cmd)
 
 #-------------------------------------------------------------------------------
 def main():
