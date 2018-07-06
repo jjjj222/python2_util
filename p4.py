@@ -20,11 +20,6 @@ import util.file as file_util
 #-------------------------------------------------------------------------------
 #   Is
 #-------------------------------------------------------------------------------
-#def is_valid_client_name_old(name):
-#    cmd = "p4 client -o -t nvtools_0_jtso_master"
-#    with open(os.devnull, 'w') as devnull:
-#        rc = subprocess.call(cmd.split() + [name], stdout=devnull)
-#    return rc == 0
 
 def is_valid_client_name(name):
     p4 = P4()
